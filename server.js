@@ -12,16 +12,15 @@ function send404(response) {
 }
 
 function sendFile(response, filePath, fileContents) {
-	response.writeHead(
-		200,
-		{"Content-Type": mime.lookup(path.basename(filePath))}
-		);
+	console.log("sendFile");
+	response.writeHead(200, {"Content-Type": mime.lookup(path.basename(filePath))});
 	response.end(fileContents);
+	console.log("endSendFile");
 }
 
 function serveStatic(response, cache, absPath) {
 	if (cache[absPath]) { // Check in cache
-		sendFile(response. ansPath, cache[absPath]); // Serve file from memory
+		sendFile(response, absPath, cache[absPath]); // Serve file from memory
 	} else {
 		fs.exists(absPath, function(exists) { // Check if the file exist.
 			if (exists) {
